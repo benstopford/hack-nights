@@ -9,7 +9,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Java version of the Poker Scoring hack (this one i just did for fun and is incomplete)
+ */
 public class PokerScoring {
+
 
     public static void main(String[] args) {
         new PokerScoring();
