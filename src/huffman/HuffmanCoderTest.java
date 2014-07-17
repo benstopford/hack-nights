@@ -18,5 +18,4 @@ public class HuffmanCoderTest {
 
         assertThat(decoded, is("this is a string without a huge amount of duplication of letters within it"));
     }
-
 }

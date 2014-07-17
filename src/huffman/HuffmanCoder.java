@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class HuffmanCoder {
-
     private PriorityQueue<Node> tree;
 
     abstract class Node implements Comparable {
         int freq;
+
         Node(int f) {
             freq = f;
         }
@@ -23,6 +23,7 @@ public class HuffmanCoder {
 
     class Leaf extends Node {
         char val;
+
         Leaf(int freq, char c) {
             super(freq);
             val = c;
@@ -31,6 +32,7 @@ public class HuffmanCoder {
 
     class Internal extends Node {
         Node left, right;
+
         Internal(Node l, Node r) {
             super(l.freq + r.freq);
             left = l;
@@ -109,14 +111,14 @@ public class HuffmanCoder {
             decoded.append(next[0]);
             encoded = next[1];
         }
-        System.out.println("Decoded: "+decoded.toString());
+        System.out.println("Decoded: " + decoded.toString());
         return decoded.toString();
     }
 
     private String[] decode(Node node, String value) {
         if (node instanceof Leaf) {
             Leaf leaf = (Leaf) node;
-            System.out.println("Found "+leaf.val + " remainder "+ value);
+            System.out.println("Found " + leaf.val + " remainder " + value);
             return new String[]{String.valueOf(leaf.val), value};
         } else {
             Internal iNode = (Internal) node;
