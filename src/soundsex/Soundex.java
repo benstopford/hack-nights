@@ -80,23 +80,7 @@ public class Soundex {
     }
 
     public Soundex() throws IOException {
-        Map<String, List<String>> encodedDict = new TreeMap();
-
-        List<String> dictionary = loadShareDictWords();
-        System.out.println(song);
-
-//        dictionary.stream().map(
-//                word->{
-//                    System.out.println(word); return null;
-//                });
-
-        for (String word : dictionary) {
-            String encoded = encode(word);
-            List<String> wordChoices = encodedDict.get(encoded);
-            if (wordChoices == null) wordChoices = new ArrayList();
-            wordChoices.add(word);
-            encodedDict.put(encoded, wordChoices);
-        }
+        Map<String, List<String>> encodedDict = encode(loadShareDictWords());
 
         StringBuffer soundexed = new StringBuffer();
 
@@ -113,6 +97,19 @@ public class Soundex {
         }
 
         System.out.println(soundexed);
+    }
+
+    private Map<String, List<String>> encode(List<String> dictionary) {
+        Map<String, List<String>> encodedDict = new TreeMap();
+
+        for (String word : dictionary) {
+            String encoded = encode(word);
+            List<String> wordChoices = encodedDict.get(encoded);
+            if (wordChoices == null) wordChoices = new ArrayList();
+            wordChoices.add(word);
+            encodedDict.put(encoded, wordChoices);
+        }
+        return encodedDict;
     }
 
     private List<String> loadShareDictWords() throws IOException {
