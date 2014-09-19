@@ -7,6 +7,7 @@ public class Ant {
 
     int iteration = 0;
     int printRadius = 50;
+    boolean[][] space = new boolean[1000][1000];
 
     boolean black = true;
     boolean white = false;
@@ -19,9 +20,7 @@ public class Ant {
 
     public Ant() throws InterruptedException {
 
-        boolean[][] space = new boolean[1000][1000];
-        int x = space.length / 2, y = space[0].length / 2;
-        int direction = 0;
+        int x = space.length / 2, y = space[0].length / 2, direction = 0;
 
         while (true) {
             if (space[x][y] == white)
@@ -51,7 +50,6 @@ public class Ant {
     private void printSpaceCenteredOnAnt(boolean[][] space, int posX, int posY, int dir) throws InterruptedException {
         Thread.sleep(1);
         if (iteration++ % 100 == 0) {
-            System.out.println("--------------------");
             String out = "";
             for (int y = (posY + printRadius / 2) - 1; y >= (posY - printRadius / 2); y--) {
                 for (int x = (posX - printRadius / 2); x < (posX + printRadius / 2); x++) {
@@ -67,7 +65,7 @@ public class Ant {
                 out += "\n";
             }
             System.out.printf(out);
-            System.out.println("iterations:"+iteration);
+            System.out.println("iterations:" + iteration);
         }
     }
 }
