@@ -6,7 +6,7 @@ public class Ant {
     }
 
     int iteration = 0;
-    int printRadius = 50;
+    int screen = 50;
     boolean[][] space = new boolean[1000][1000];
 
     boolean black = true;
@@ -51,8 +51,8 @@ public class Ant {
         Thread.sleep(1);
         if (iteration++ % 100 == 0) {
             String out = "";
-            for (int y = (posY + printRadius / 2) - 1; y >= (posY - printRadius / 2); y--) {
-                for (int x = (posX - printRadius / 2); x < (posX + printRadius / 2); x++) {
+            for (int y = (posY + screen / 2) - 1; y >= (posY - screen / 2); y--) {
+                for (int x = (posX - screen); x < (posX + screen); x++) {
                     if (x == posX & y == posY) {
                         out += ant[dir];
                         continue;
