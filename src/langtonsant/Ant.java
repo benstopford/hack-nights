@@ -8,7 +8,6 @@ public class Ant {
     int iteration = 0;
     int printRadius = 50;
 
-
     boolean black = true;
     boolean white = false;
 
