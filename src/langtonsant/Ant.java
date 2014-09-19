@@ -5,28 +5,32 @@ public class Ant {
         new Ant();
     }
 
+    int iteration = 0;
+    int printRadius = 50;
+
+
     boolean black = true;
     boolean white = false;
 
     int north = 0, east = 1, south = 2, west = 3;
     int[] right = new int[]{east, south, west, north};
     int[] left = new int[]{west, north, east, south};
-    char[] ant = new char[]{'^','>','V','<'};
+    char[] ant = new char[]{'^', '>', 'V', '<'};
 
 
     public Ant() throws InterruptedException {
 
-        boolean[][] board = new boolean[20][20];
-        int x = 10, y = 10;
+        boolean[][] space = new boolean[1000][1000];
+        int x = space.length / 2, y = space[0].length / 2;
         int direction = 0;
 
         while (true) {
-            if (board[x][y] == white)
+            if (space[x][y] == white)
                 direction = left[direction];
             else
                 direction = right[direction];
 
-            board[x][y] = !board[x][y];
+            space[x][y] = !space[x][y];
 
             if (direction == north)
                 y++;
@@ -40,27 +44,31 @@ public class Ant {
             if (direction == west)
                 x--;
 
-            System.out.println(board[x][y]);
-            printBoard(board, x, y, direction);
-            Thread.sleep(100);
+            printSpaceCenteredOnAnt(space, x, y, direction);
         }
 
     }
 
-    private void printBoard(boolean[][] board, int posX, int posY, int dir) {
-        System.out.println("--------------------");
-        System.out.printf("x:%s,y:%s,dir:%s\n", posX, posY, dir);
-        String out = "";
-        for (int y = board.length-1; y >= 0; y--) {
-            for (int x = 0; x < board[y].length; x++) {
-                if(x==posX&y==posY) {out+=ant[dir]; continue;}
-                if (board[x][y])
-                    out += "X";
-                else
-                    out += "~";
+    private void printSpaceCenteredOnAnt(boolean[][] space, int posX, int posY, int dir) throws InterruptedException {
+        Thread.sleep(1);
+        if (iteration++ % 100 == 0) {
+            System.out.println("--------------------");
+            String out = "";
+            for (int y = (posY + printRadius / 2) - 1; y >= (posY - printRadius / 2); y--) {
+                for (int x = (posX - printRadius / 2); x < (posX + printRadius / 2); x++) {
+                    if (x == posX & y == posY) {
+                        out += ant[dir];
+                        continue;
+                    }
+                    if (space[x][y])
+                        out += 'O';
+                    else
+                        out += '_';
+                }
+                out += "\n";
             }
-            out += "\n";
+            System.out.printf(out);
+            System.out.println("iterations:"+iteration);
         }
-        System.out.printf(out);
     }
 }
