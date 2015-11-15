@@ -117,6 +117,8 @@ public class ZeroEncoderTest {
         byte[] output = encoder.revert(noZeros);
 
         assertThat(output, is(input));
+
+        System.out.println("Length of non zeros was " + noZeros.length);
     }
 
 }

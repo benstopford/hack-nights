@@ -2,24 +2,17 @@ package zeroencoder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Random;
-
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Random;
-
 
 /**
  * Creates a variable length encoding based on fixed 7 byte chunks from the
  * inbound array.
- * <p/>
+ * <p>
  * The input array is separated into sections of 7 bytes. Any zeros present in these 7 bytes
  * are encoded in a single byte bitmap header. This is followed by between 0 and 7 non-zero bytes.
  * The encoding repeats.
- *
+ * <p>
  * The bitmap value of 0 is escaped to comply with the question specification
- *
+ * <p>
  * Note that the inbound data is treated as fixed width 7 byte chunks but the encoded value
  * is variable length.
  */
@@ -38,7 +31,7 @@ public class ZeroEncoder {
             //this byte will either be the zeros bitmap or a value
             if (zerosBitmap == notSet) {
                 zerosBitmap = b;
-                if(zerosBitmap==-1) zerosBitmap = 0;
+                if (zerosBitmap == -1) zerosBitmap = 0;
             } else {
                 output.write(b);
                 wordCounter++;
@@ -82,7 +75,7 @@ public class ZeroEncoder {
             if (buffered == 7 || (written + buffered) == input.length) {
 
                 //escape 0x00 in the zeros bitmap
-                if(zerosBitmap==0) zerosBitmap = -1;
+                if (zerosBitmap == 0) zerosBitmap = -1;
 
                 //write this chunk
                 output.write((byte) zerosBitmap);
