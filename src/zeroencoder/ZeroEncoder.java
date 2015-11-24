@@ -24,7 +24,7 @@ public class ZeroEncoder {
     public byte[] revert(byte[] noZeros) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         int zerosBitmap = notSet;
-        int wordCounter = 0;
+        int wordPosition = 0;
 
         for (byte b : noZeros) {
 
@@ -34,19 +34,19 @@ public class ZeroEncoder {
                 if (zerosBitmap == -1) zerosBitmap = 0;
             } else {
                 output.write(b);
-                wordCounter++;
+                wordPosition++;
             }
 
             //check to see if we need to add zeros from the bitmap
-            while ((zerosBitmap & (1 << wordCounter)) > 0 && wordCounter < 8) {
+            while ((zerosBitmap & (1 << wordPosition)) > 0 && wordPosition < 8) {
                 output.write((byte) 0);
-                wordCounter++;
+                wordPosition++;
             }
 
             //reset if we reach the end of the 7 byte chunk
-            if (wordCounter == 7) {
+            if (wordPosition == 7) {
                 zerosBitmap = notSet;
-                wordCounter = 0;
+                wordPosition = 0;
             }
         }
 
@@ -63,13 +63,11 @@ public class ZeroEncoder {
 
         for (byte b : input) {
             //Either write zeros to the bitmap of just append the value.
-            if (b == 0) {
+            if (b == 0)
                 zerosBitmap = zerosBitmap | 0x01 << buffered;
-                buffered++;
-            } else {
+            else
                 buf.write(b);
-                buffered++;
-            }
+            buffered++;
 
             //Once we've consumed 7 bytes of input flush to the output buffer
             if (buffered == 7 || (written + buffered) == input.length) {
