@@ -80,7 +80,7 @@ public class ZeroEncoder {
                 output.write(buf.toByteArray());
 
                 //cleanup
-                buf = new ByteArrayOutputStream();
+                buf.reset();
                 zerosBitmap = 0;
                 buffered = 0;
                 written += 7;
